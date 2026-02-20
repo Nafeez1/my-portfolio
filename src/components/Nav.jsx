@@ -24,8 +24,8 @@ export default function Nav() {
       initial={{ opacity: 0, y: -6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`fixed left-0 right-0 top-0 z-40 border-b transition-colors duration-300 ${
-        scrolled ? "border-border bg-white" : "border-transparent bg-transparent"
+      className={`fixed left-0 right-0 top-0 z-40 border-b transition-all duration-300 ${
+        scrolled ? "border-border bg-white/95 backdrop-blur-sm shadow-sm" : "border-transparent bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">

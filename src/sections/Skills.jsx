@@ -10,19 +10,23 @@ const groups = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="border-t border-border bg-cream py-24 md:py-32">
-      <div className="mx-auto max-w-5xl px-6">
+    <section id="skills" className="relative border-t border-border py-24 md:py-32" style={{
+      background: 'linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%)'
+    }}>
+      <div className="absolute bottom-20 left-10 h-96 w-96 rounded-full bg-warmGray/5 blur-3xl" />
+      
+      <div className="relative mx-auto max-w-5xl px-6">
         <SectionReveal>
-          <h2 className="font-sans text-3xl font-semibold text-navy md:text-4xl">
-            Skills
+          <h2 className="section-title font-sans text-3xl font-semibold text-navy md:text-4xl">
+            Skills & Expertise
           </h2>
           <div className="mt-12 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             {groups.map((g) => (
-              <div key={g.key}>
-                <h3 className="text-xs font-medium uppercase tracking-wider text-warmGray">
+              <div key={g.key} className="card p-6">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-navy mb-4">
                   {g.label}
                 </h3>
-                <ul className="mt-4 space-y-3">
+                <ul className="space-y-3">
                   {(skills[g.key] || []).map((skill, i) => (
                     <li key={i}>
                       <SkillLink>{skill}</SkillLink>

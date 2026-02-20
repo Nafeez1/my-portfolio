@@ -1,0 +1,26 @@
+HOW TO ADD YOUR PROFILE PICTURE
+================================
+
+1. Save your profile picture as "profile.jpg" in the public folder
+   - The image you shared should be saved as: public/profile.jpg
+
+2. Alternatively, you can use these formats:
+   - profile.jpg
+   - profile.png
+   - profile.jpeg
+
+3. The image will automatically appear in the Hero section of your portfolio
+
+4. Recommended image specifications:
+   - Aspect ratio: 3:4 (portrait)
+   - Minimum size: 600x800 pixels
+   - Maximum size: 1200x1600 pixels
+   - Format: JPG or PNG
+   - File size: Under 500KB for faster loading
+
+5. After adding the image, refresh your browser to see it
+
+CURRENT STATUS:
+- Hero section is configured to use /profile.jpg
+- Fallback placeholder will show if image is not found
+- Image has hover effects and 3D tilt interaction

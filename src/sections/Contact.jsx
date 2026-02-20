@@ -61,14 +61,18 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative border-t border-border bg-white py-24 md:py-32">
+    <section id="contact" className="relative border-t border-border py-24 md:py-32" style={{
+      background: 'linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%)'
+    }}>
+      <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-warmGray/5 blur-3xl" />
+      
       <div className="container relative z-10 mx-auto max-w-5xl px-6">
         <motion.h2
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4 }}
-          className="mb-12 text-center font-sans text-3xl font-semibold text-navy md:text-4xl"
+          className="section-title mb-12 text-center font-sans text-3xl font-semibold text-navy md:text-4xl"
         >
           Get in Touch
         </motion.h2>

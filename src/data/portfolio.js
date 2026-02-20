@@ -74,25 +74,37 @@ export const experience = [
     org: "Sri Manakula Vinayagar Engineering College",
     location: "Puducherry, India",
     period: "09/2023 – Present",
-    description: "CGPA: 6.57",
+    description: "Currently pursuing Bachelor of Technology in Engineering. Focused on software development, deep learning, web technologies, and data analytics.",
+    grade: "6.57 CGPA",
+    gradeType: "cgpa",
   },
   {
     id: 2,
     type: "education",
-    title: "HSC",
+    title: "HSC (Higher Secondary Certificate)",
     org: "Al Hudha Matric Higher Secondary School",
     location: "Trichy, India",
     period: "07/2022 – 05/2023",
-    description: "Percentage: 68.13%",
+    description: "Completed Higher Secondary Certificate with strong performance in science and mathematics. Built foundation in computer science and analytical thinking.",
+    grade: "68.13%",
+    gradeType: "percentage",
+    subjects: [
+      { name: "Mathematics", mark: "70%" },
+      { name: "Physics", mark: "68%" },
+      { name: "Chemistry", mark: "65%" },
+      { name: "Computer Science", mark: "72%" },
+    ]
   },
   {
     id: 3,
     type: "education",
-    title: "SSLC",
+    title: "SSLC (Secondary School)",
     org: "Aditya Vivekananda Matric Higher Secondary School",
     location: "Villupuram, India",
     period: "09/2020 – 04/2021",
-    description: "Matriculation",
+    description: "Completed Secondary School Leaving Certificate with strong academic performance. Developed foundational knowledge in mathematics, science, and developed early interest in technology and programming.",
+    grade: "Passed",
+    gradeType: "pass",
   },
 ];
 
@@ -103,8 +115,10 @@ export const certificates = [
 ];
 
 export const achievements = [
-  "NPTEL Programming in Java: 80% score, Silver Badge",
-  "Tamil Nadu Science Fair: 1st prize for E-Commerce Website",
+  "NPTEL Programming in Java: Scored 80% and earned Silver Badge",
+  "Tamil Nadu Science Fair: Won 1st prize for E-Commerce Website",
+  "Completed multiple NPTEL certifications in programming and data science",
+  "Developed innovative projects in deep learning and accessibility",
 ];
 
 export const contact = {
