@@ -96,25 +96,23 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div
-            className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-card border-2 border-border bg-white shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1"
+            className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-card border-2 border-navy/20 bg-gradient-to-br from-navy/5 to-warmGray/5 shadow-card transition-all duration-300 hover:border-navy/40 hover:shadow-card-hover hover:-translate-y-1"
             style={{ maxHeight: "400px" }}
           >
-            <img
-              src="/profile.jpg"
-              alt="Mohamed Nafeez S"
-              className="h-full w-full object-cover"
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextElementSibling.style.display = 'flex';
-              }}
-            />
-            <div className="absolute inset-0 hidden items-center justify-center bg-gradient-to-br from-cream to-white">
-              <div className="text-center">
-                <div className="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-navy/5 text-4xl">
-                  👤
-                </div>
-                <span className="text-sm text-warmGray">Mohamed Nafeez S</span>
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+              <div className="mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-navy to-[#2D3E5F] text-6xl text-white shadow-lg">
+                <span className="font-serif">MN</span>
               </div>
+              <h3 className="font-serif text-2xl font-semibold text-navy">Mohamed Nafeez S</h3>
+              <p className="mt-2 text-sm text-warmGray">Front End Developer</p>
+              <div className="mt-4 flex gap-2">
+                <div className="h-2 w-2 rounded-full bg-navy animate-pulse" />
+                <div className="h-2 w-2 rounded-full bg-navy animate-pulse" style={{ animationDelay: '0.2s' }} />
+                <div className="h-2 w-2 rounded-full bg-navy animate-pulse" style={{ animationDelay: '0.4s' }} />
+              </div>
+              <p className="mt-4 text-xs text-muted italic">
+                "Building accessible web experiences"
+              </p>
             </div>
           </div>
         </motion.div>

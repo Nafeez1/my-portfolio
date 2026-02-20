@@ -81,9 +81,9 @@ export default function Chatbot() {
         ref={buttonRef}
         type="button"
         aria-label="Open chat"
-        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-border bg-white text-warmGray shadow-card transition-colors hover:border-navy hover:text-navy"
+        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full border-2 border-navy bg-gradient-to-br from-navy to-[#2D3E5F] text-white shadow-lg transition-all hover:scale-110 hover:shadow-xl"
         style={{
-          transform: `scale(${1 + proximity * 0.03})`,
+          transform: `scale(${1 + proximity * 0.05})`,
         }}
         onClick={() => setOpen((o) => !o)}
       >
