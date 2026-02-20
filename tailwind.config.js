@@ -1,43 +1,33 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  darkMode: "class",
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        primary: "#2563eb",
-        background: {
-          main: "#f9fafb",
-          section: "#ffffff",
-        },
-        text: {
-          heading: "#111827",
-          body: "#374151",
-          muted: "#6b7280",
-        },
-        border: "#e5e7eb",
+        cream: "#FAFAF7",
+        white: "#FFFFFF",
+        navy: "#1F2A44",
+        warmGray: "#8A8F98",
+        ink: "#1C1C1C",
+        body: "#3A3A3A",
+        muted: "#6B7280",
+        border: "#E5E7EB",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-        display: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        serif: ["Playfair Display", "Georgia", "serif"],
       },
-      animation: {
-        "fade-in": "fadeIn 0.5s ease-in-out",
-        "slide-up": "slideUp 0.5s ease-out",
+      letterSpacing: {
+        tight: "-0.01em",
+        name: "0.02em",
       },
-      keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        slideUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
+      borderRadius: {
+        card: "10px",
+      },
+      boxShadow: {
+        card: "0 1px 3px rgba(0,0,0,0.04)",
+        "card-hover": "0 4px 12px rgba(0,0,0,0.06)",
+        button: "0 4px 12px rgba(31, 42, 68, 0.15)",
       },
     },
   },

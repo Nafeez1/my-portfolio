@@ -1,120 +1,117 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { experience, certificates, achievements } from "../data/portfolio";
+import SectionReveal from "../components/SectionReveal";
 
 export default function Experience() {
   const ref = useRef(null);
+  const sectionRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const onScroll = () => {
+      const rect = section.getBoundingClientRect();
+      const winH = window.innerHeight;
+      const total = rect.height - winH;
+      if (total <= 0) {
+        setProgress(1);
+        return;
+      }
+      const start = rect.top - winH * 0.5;
+      const p = Math.max(0, Math.min(1, -start / total));
+      setProgress(p);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <section id="experience" className="relative py-20 md:py-24" style={{ backgroundColor: '#f9fafb' }}>
-      <div className="container mx-auto max-w-5xl px-6">
-        <motion.h2
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.4 }}
-          className="mb-12 text-center text-3xl font-semibold"
-          style={{ color: '#111827' }}
-        >
-          Experience & Education
-        </motion.h2>
+    <section
+      id="experience"
+      ref={sectionRef}
+      className="border-t border-border bg-cream py-24 md:py-32"
+    >
+      <div className="mx-auto max-w-5xl px-6">
+        <SectionReveal>
+          <h2 className="font-sans text-3xl font-semibold text-navy md:text-4xl">
+            Experience & Education
+          </h2>
 
-        <div className="relative">
-          <div 
-            className="absolute left-4 top-0 bottom-0 w-px md:left-1/2 md:-translate-x-px" 
-            style={{ backgroundColor: '#e5e7eb' }}
-          />
-          <ul className="space-y-8">
-            {experience.map((item, i) => (
-              <motion.li
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="relative flex md:flex-row md:items-center md:gap-8"
-              >
-                <div
-                  className={`flex flex-1 md:justify-end ${i % 2 === 1 ? "md:order-2" : ""}`}
+          <div className="relative mt-12 flex">
+            <div className="absolute left-[11px] top-0 h-full w-px bg-border md:left-1/2 md:-translate-x-px">
+              <motion.div
+                className="absolute inset-0 w-full bg-navy"
+                style={{ originY: 0 }}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: progress }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
+
+            <ul className="w-full space-y-10">
+              {experience.map((item, i) => (
+                <motion.li
+                  key={item.id}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -12 : 12 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: i * 0.08, duration: 0.35 }}
+                  className={`relative flex items-start gap-6 md:gap-12 ${
+                    i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
                 >
-                  <div
-                    className={`card max-w-md ${
-                      i % 2 === 1 ? "md:text-left" : "md:text-right md:ml-auto"
-                    }`}
-                  >
+                  <div className="relative z-10 ml-6 w-full max-w-md rounded-card border border-border bg-white p-6 shadow-card md:ml-0">
                     <span
-                      className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${
-                        item.type === "work"
-                          ? "tag-primary"
-                          : "border"
+                      className={`inline-block text-xs font-medium uppercase tracking-wider ${
+                        item.type === "work" ? "text-navy" : "text-warmGray"
                       }`}
-                      style={item.type !== "work" ? { 
-                        backgroundColor: '#f0fdf4', 
-                        color: '#15803d',
-                        borderColor: '#bbf7d0'
-                      } : {}}
                     >
                       {item.type === "work" ? "Work" : "Education"}
                     </span>
-                    <h3 className="mt-2 text-lg font-semibold" style={{ color: '#111827' }}>{item.title}</h3>
-                    <p className="font-medium" style={{ color: '#2563eb' }}>{item.org}</p>
+                    <h3 className="mt-2 font-sans text-lg font-semibold text-navy">
+                      {item.title}
+                    </h3>
+                    <p className="text-body">{item.org}</p>
                     {item.location && (
-                      <p className="text-xs" style={{ color: '#6b7280' }}>{item.location}</p>
+                      <p className="text-xs text-muted">{item.location}</p>
                     )}
-                    <p className="mt-1 text-sm" style={{ color: '#6b7280' }}>{item.period}</p>
-                    <p className="mt-2 text-sm" style={{ color: '#374151' }}>{item.description}</p>
+                    <p className="mt-1 text-sm text-muted">{item.period}</p>
+                    <p className="mt-2 text-sm text-body">{item.description}</p>
                   </div>
-                </div>
-                <div 
-                  className="absolute left-4 h-3 w-3 rounded-full border-2 md:left-1/2 md:-translate-x-1/2" 
-                  style={{ 
-                    borderColor: '#2563eb',
-                    backgroundColor: '#f9fafb'
-                  }}
-                />
-                <div className="flex-1 md:order-1" />
-              </motion.li>
-            ))}
-          </ul>
-        </div>
+                  <div className="absolute left-0 top-6 h-[14px] w-[14px] shrink-0 rounded-full border-2 border-navy bg-white md:left-1/2 md:-translate-x-1/2" />
+                </motion.li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Certificates & Achievements */}
-        <div className="mt-16 grid gap-8 sm:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: 0.5 }}
-            className="card"
-          >
-            <h3 className="mb-4 text-lg font-semibold" style={{ color: '#111827' }}>
-              Certificates
-            </h3>
-            <ul className="space-y-2">
-              {certificates.map((c, i) => (
-                <li key={i} className="text-sm" style={{ color: '#374151' }}>
-                  <span style={{ color: '#2563eb' }}>•</span> {c}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: 0.6 }}
-            className="card"
-          >
-            <h3 className="mb-4 text-lg font-semibold" style={{ color: '#111827' }}>
-              Achievements
-            </h3>
-            <ul className="space-y-2">
-              {achievements.map((a, i) => (
-                <li key={i} className="text-sm" style={{ color: '#374151' }}>
-                  <span style={{ color: '#2563eb' }}>•</span> {a}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
+          <div className="mt-16 grid gap-8 sm:grid-cols-2">
+            <div className="rounded-card border border-border bg-white p-6 shadow-card">
+              <h3 className="font-sans text-lg font-semibold text-navy">
+                Certificates
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm text-body">
+                {certificates.map((c, i) => (
+                  <li key={i}>· {c}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-card border border-border bg-white p-6 shadow-card">
+              <h3 className="font-sans text-lg font-semibold text-navy">
+                Achievements
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm text-body">
+                {achievements.map((a, i) => (
+                  <li key={i}>· {a}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </SectionReveal>
       </div>
     </section>
   );

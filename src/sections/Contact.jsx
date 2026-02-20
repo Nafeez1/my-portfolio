@@ -31,7 +31,6 @@ export default function Contact() {
     e.preventDefault();
     setFormState({ status: "sending", message: "" });
 
-    // EmailJS: set VITE_EMAILJS_* in .env and use your template
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -49,7 +48,6 @@ export default function Contact() {
       setFormState({ status: "success", message: "Message sent successfully! I'll get back to you soon." });
       formRef.current.reset();
       
-      // Clear success message after 5 seconds
       setTimeout(() => {
         setFormState({ status: "idle", message: "" });
       }, 5000);
@@ -63,15 +61,14 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-20 md:py-24" style={{ backgroundColor: '#ffffff' }}>
+    <section id="contact" className="relative border-t border-border bg-white py-24 md:py-32">
       <div className="container relative z-10 mx-auto max-w-5xl px-6">
         <motion.h2
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4 }}
-          className="mb-12 text-center text-3xl font-semibold"
-          style={{ color: '#111827' }}
+          className="mb-12 text-center font-sans text-3xl font-semibold text-navy md:text-4xl"
         >
           Get in Touch
         </motion.h2>
@@ -84,16 +81,13 @@ export default function Contact() {
         >
           <div className="grid gap-12 md:grid-cols-2">
             <div>
-              <p className="mb-6" style={{ color: '#44403c' }}>
+              <p className="mb-6 text-body">
                 Have a project in mind or want to chat? Send a message or reach out on socials.
               </p>
               <div className="space-y-4">
                 <a
                   href={`mailto:${contact.email}`}
-                  className="flex items-center gap-3 font-medium transition-colors"
-                  style={{ color: '#0891b2' }}
-                  onMouseEnter={(e) => e.target.style.color = '#0e7490'}
-                  onMouseLeave={(e) => e.target.style.color = '#0891b2'}
+                  className="flex items-center gap-3 font-medium text-navy transition-colors hover:text-navy/80"
                 >
                   <span className="text-2xl">✉️</span>
                   {contact.email}
@@ -101,41 +95,26 @@ export default function Contact() {
                 {contact.phone && (
                   <a
                     href={`tel:${contact.phone}`}
-                    className="flex items-center gap-3 font-medium transition-colors"
-                    style={{ color: '#44403c' }}
-                    onMouseEnter={(e) => e.target.style.color = '#0891b2'}
-                    onMouseLeave={(e) => e.target.style.color = '#44403c'}
+                    className="flex items-center gap-3 font-medium text-body transition-colors hover:text-navy"
                   >
                     <span className="text-2xl">📞</span>
                     {contact.phone}
                   </a>
                 )}
                 {contact.location && (
-                  <p className="flex items-center gap-3" style={{ color: '#78716c' }}>
+                  <p className="flex items-center gap-3 text-muted">
                     <span className="text-2xl">📍</span>
                     {contact.location}
                   </p>
                 )}
-                <div className="flex gap-4">
+                <div className="flex gap-4 pt-2">
                   {contact.social.map((s) => (
                     <a
                       key={s.name}
                       href={s.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 rounded-lg transition-all"
-                      style={{ 
-                        border: '1px solid #e7e5e4',
-                        color: '#78716c'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = '#0891b2';
-                        e.currentTarget.style.color = '#0891b2';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = '#e7e5e4';
-                        e.currentTarget.style.color = '#78716c';
-                      }}
+                      className="rounded-lg border border-border p-3 text-warmGray transition-all hover:border-navy hover:text-navy"
                       aria-label={s.name}
                     >
                       {socialIcons[s.icon] || socialIcons.code}
@@ -147,7 +126,7 @@ export default function Contact() {
 
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="name" className="mb-1 block text-sm font-medium" style={{ color: '#111827' }}>
+                <label htmlFor="name" className="mb-1 block text-sm font-medium text-navy">
                   Name
                 </label>
                 <input
@@ -155,19 +134,12 @@ export default function Contact() {
                   name="from_name"
                   type="text"
                   required
-                  className="w-full rounded-md px-4 py-3"
-                  style={{
-                    border: '1px solid #e7e5e4',
-                    backgroundColor: '#fafaf9',
-                    color: '#44403c'
-                  }}
+                  className="w-full rounded-md border border-border bg-cream px-4 py-3 text-body transition-colors focus:border-navy focus:outline-none"
                   placeholder="Your name"
-                  onFocus={(e) => e.target.style.borderColor = '#0891b2'}
-                  onBlur={(e) => e.target.style.borderColor = '#e7e5e4'}
                 />
               </div>
               <div>
-                <label htmlFor="email" className="mb-1 block text-sm font-medium" style={{ color: '#111827' }}>
+                <label htmlFor="email" className="mb-1 block text-sm font-medium text-navy">
                   Email
                 </label>
                 <input
@@ -175,19 +147,12 @@ export default function Contact() {
                   name="from_email"
                   type="email"
                   required
-                  className="w-full rounded-md px-4 py-3"
-                  style={{
-                    border: '1px solid #e7e5e4',
-                    backgroundColor: '#fafaf9',
-                    color: '#44403c'
-                  }}
+                  className="w-full rounded-md border border-border bg-cream px-4 py-3 text-body transition-colors focus:border-navy focus:outline-none"
                   placeholder="you@example.com"
-                  onFocus={(e) => e.target.style.borderColor = '#0891b2'}
-                  onBlur={(e) => e.target.style.borderColor = '#e7e5e4'}
                 />
               </div>
               <div>
-                <label htmlFor="message" className="mb-1 block text-sm font-medium" style={{ color: '#111827' }}>
+                <label htmlFor="message" className="mb-1 block text-sm font-medium text-navy">
                   Message
                 </label>
                 <textarea
@@ -195,19 +160,13 @@ export default function Contact() {
                   name="message"
                   rows={4}
                   required
-                  className="w-full rounded-md px-4 py-3"
-                  style={{
-                    border: '1px solid #e7e5e4',
-                    backgroundColor: '#fafaf9',
-                    color: '#44403c'
-                  }}
+                  className="w-full rounded-md border border-border bg-cream px-4 py-3 text-body transition-colors focus:border-navy focus:outline-none"
                   placeholder="Your message..."
-                  onFocus={(e) => e.target.style.borderColor = '#0891b2'}
-                  onBlur={(e) => e.target.style.borderColor = '#e7e5e4'}
                 />
               </div>
               {formState.message && (
                 <p
+                  className="text-sm"
                   style={{
                     color: formState.status === "error" ? '#dc2626' : '#16a34a'
                   }}
@@ -218,7 +177,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={formState.status === "sending"}
-                className="w-full btn-primary"
+                className="btn-primary w-full"
                 style={{ opacity: formState.status === "sending" ? 0.5 : 1 }}
               >
                 {formState.status === "sending" ? "Sending..." : "Send Message"}

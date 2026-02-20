@@ -1,11 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { projects } from "../data/portfolio";
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  show: (i) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1 } }),
-};
+import SectionReveal from "../components/SectionReveal";
 
 export default function Projects() {
   const ref = useRef(null);
@@ -19,61 +15,24 @@ export default function Projects() {
   }, [selected]);
 
   return (
-    <section id="projects" className="relative py-20 md:py-24" style={{ backgroundColor: '#ffffff' }}>
-      <div className="container mx-auto max-w-5xl px-6">
-        <motion.h2
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.4 }}
-          className="mb-12 text-center text-3xl font-semibold"
-          style={{ color: '#111827' }}
-        >
-          Projects
-        </motion.h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, i) => (
-            <motion.article
-              key={project.id}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              animate={isInView ? "show" : "hidden"}
-              className="card cursor-pointer"
-              onClick={() => setSelected(project)}
-            >
-              <div 
-                className="aspect-video rounded-lg flex items-center justify-center mb-4"
-                style={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb' }}
-              >
-                <span className="text-4xl" style={{ opacity: 0.4 }}>📁</span>
-              </div>
-              <h3 
-                className="mb-1 text-xl font-semibold transition-colors"
-                style={{ color: '#111827' }}
-                onMouseEnter={(e) => e.target.style.color = '#2563eb'}
-                onMouseLeave={(e) => e.target.style.color = '#111827'}
-              >
-                {project.title}
-              </h3>
-              {(project.duration || project.role) && (
-                <p className="mb-2 text-xs font-medium" style={{ color: '#2563eb' }}>
-                  {[project.duration, project.role].filter(Boolean).join(" · ")}
-                </p>
-              )}
-              <p className="mb-4 line-clamp-2 text-sm" style={{ color: '#6b7280' }}>
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.tech.slice(0, 3).map((t) => (
-                  <span key={t} className="tag text-xs">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </motion.article>
-          ))}
-        </div>
+    <section id="projects" className="border-t border-border bg-white py-24 md:py-32">
+      <div className="mx-auto max-w-5xl px-6">
+        <SectionReveal>
+          <h2 className="font-sans text-3xl font-semibold text-navy md:text-4xl">
+            Projects
+          </h2>
+          <div ref={ref} className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, i) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={i}
+                isInView={isInView}
+                onClick={() => setSelected(project)}
+              />
+            ))}
+          </div>
+        </SectionReveal>
       </div>
 
       <AnimatePresence>
@@ -82,39 +41,42 @@ export default function Projects() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-ink/30 p-4"
             onClick={() => setSelected(null)}
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="max-h-[90vh] w-full max-w-lg overflow-auto card"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="max-h-[90vh] w-full max-w-lg overflow-auto rounded-card border border-border bg-white p-8 shadow-card-hover"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="mb-1 text-2xl font-semibold" style={{ color: '#111827' }}>{selected.title}</h3>
+              <h3 className="font-sans text-2xl font-semibold text-navy">
+                {selected.title}
+              </h3>
               {(selected.duration || selected.role) && (
-                <p className="mb-3 text-sm font-medium" style={{ color: '#2563eb' }}>
+                <p className="mt-1 text-sm text-warmGray">
                   {[selected.duration, selected.role].filter(Boolean).join(" · ")}
                 </p>
               )}
-              <p className="mb-4" style={{ color: '#374151' }}>{selected.description}</p>
-              <div className="mb-6 flex flex-wrap gap-2">
+              <p className="mt-4 text-body">{selected.description}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
                 {selected.tech.map((t) => (
-                  <span key={t} className="tag-primary text-sm">
+                  <span
+                    key={t}
+                    className="rounded border border-border px-2 py-1 text-xs text-muted"
+                  >
                     {t}
                   </span>
                 ))}
               </div>
-              <div className="flex gap-4">
+              <div className="mt-8 flex gap-4">
                 <a
                   href={selected.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary text-sm"
+                  className="text-sm font-medium text-navy no-underline hover:underline"
                 >
                   Live
                 </a>
@@ -122,13 +84,14 @@ export default function Projects() {
                   href={selected.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary text-sm"
+                  className="text-sm font-medium text-navy no-underline hover:underline"
                 >
                   GitHub
                 </a>
                 <button
+                  type="button"
                   onClick={() => setSelected(null)}
-                  className="btn-secondary text-sm"
+                  className="text-sm font-medium text-muted hover:text-ink"
                 >
                   Close
                 </button>
@@ -138,5 +101,59 @@ export default function Projects() {
         )}
       </AnimatePresence>
     </section>
+  );
+}
+
+function ProjectCard({ project, index, isInView, onClick }) {
+  const cardRef = useRef(null);
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 50 });
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setSpotlight({ x, y });
+  };
+
+  return (
+    <motion.article
+      ref={cardRef}
+      initial={{ opacity: 0, y: 16 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.06, duration: 0.35 }}
+      className="group relative cursor-pointer overflow-hidden rounded-card border border-border bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-ink/15 hover:shadow-card-hover"
+      onClick={onClick}
+      onMouseMove={handleMouseMove}
+    >
+      <div className="relative aspect-video overflow-hidden bg-border">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background: `radial-gradient(circle 100px at ${spotlight.x}% ${spotlight.y}%, rgba(31,42,68,0.06), transparent 65%)`,
+          }}
+        />
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center text-warmGray"
+          whileHover={{ scale: 1.03 }}
+          transition={{ duration: 0.25 }}
+        >
+          <span className="text-4xl opacity-40">📁</span>
+        </motion.div>
+      </div>
+      <div className="border-t border-border p-5">
+        <h3 className="font-sans text-lg font-semibold text-navy">
+          {project.title}
+        </h3>
+        {(project.duration || project.role) && (
+          <p className="mt-0.5 text-xs text-warmGray">
+            {[project.duration, project.role].filter(Boolean).join(" · ")}
+          </p>
+        )}
+        <p className="mt-2 line-clamp-2 text-sm text-body">
+          {project.description}
+        </p>
+      </div>
+    </motion.article>
   );
 }
