@@ -4,30 +4,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: "#FAFAF7",
-        white: "#FFFFFF",
-        navy: "#1F2A44",
-        warmGray: "#8A8F98",
-        ink: "#1C1C1C",
-        body: "#3A3A3A",
-        muted: "#6B7280",
-        border: "#E5E7EB",
+        black: "#0B0B0B",
+        gold: "#FFD700",
+        darkGold: "#D4AF37",
+        lightGray: "#E0E0E0",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
         serif: ["Playfair Display", "Georgia", "serif"],
       },
-      letterSpacing: {
-        tight: "-0.01em",
-        name: "0.02em",
-      },
-      borderRadius: {
-        card: "10px",
+      animation: {
+        shimmer: "shimmer 3s linear infinite",
+        float: "float 6s ease-in-out infinite",
+        glow: "glow 2s ease-in-out infinite",
+        fadeInUp: "fadeInUp 0.8s ease-out",
+        goldPulse: "goldPulse 2s ease-in-out infinite",
       },
       boxShadow: {
-        card: "0 1px 3px rgba(0,0,0,0.04)",
-        "card-hover": "0 4px 12px rgba(0,0,0,0.06)",
-        button: "0 4px 12px rgba(31, 42, 68, 0.15)",
+        gold: "0 0 40px rgba(255, 215, 0, 0.3)",
+        "gold-lg": "0 0 60px rgba(255, 215, 0, 0.5)",
       },
     },
   },

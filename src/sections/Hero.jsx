@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { hero, resumeUrl } from "../data/portfolio";
+import GoldSphereScene from "../components/GoldSphereScene";
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -27,42 +28,53 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen px-6 pt-28 pb-20 md:pt-36 md:pb-28"
-      style={{
-        background: 'linear-gradient(135deg, #FAFAF7 0%, #F5F3EF 50%, #FAFAF7 100%)'
-      }}
+      className="relative min-h-screen px-6 pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden"
     >
-      <div className="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-2 md:gap-16">
-        <div className="order-2 md:order-1">
-          <motion.h1
-            className="font-serif text-4xl font-semibold tracking-name text-navy md:text-5xl lg:text-6xl"
-            initial={{ opacity: 0, y: 20 }}
+      {/* 3D Background Sphere */}
+      <div className="absolute inset-0 top-0 left-0 w-full h-2/3">
+        <GoldSphereScene />
+      </div>
+
+      <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2 md:gap-16 relative z-10">
+        {/* Left Content */}
+        <div className="order-2 md:order-1 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="space-y-2"
           >
-            {hero.name}
-          </motion.h1>
+            <p className="text-gold-primary text-sm font-semibold tracking-widest uppercase">
+              Front End Developer
+            </p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-semibold leading-tight">
+              <span className="gradient-gold">{hero.name}</span>
+            </h1>
+          </motion.div>
+
           <motion.p
-            className="mt-4 font-sans text-lg text-navy md:text-xl"
-            initial={{ opacity: 0, y: 10 }}
+            className="text-xl text-text-secondary max-w-2xl leading-relaxed font-light"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.35 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
           >
             {hero.role}
           </motion.p>
+
           <motion.p
-            className="mt-3 max-w-md font-sans text-body leading-relaxed"
-            initial={{ opacity: 0, y: 10 }}
+            className="text-base text-text-secondary/80 max-w-2xl leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.35 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
           >
             {hero.tagline}
           </motion.p>
+
           <motion.div
-            className="mt-10 flex flex-wrap gap-4"
-            initial={{ opacity: 0, y: 10 }}
+            className="flex flex-wrap gap-4 pt-4"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.35 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
           >
             <a
               href="#projects"
@@ -80,57 +92,103 @@ export default function Hero() {
               Download Resume
             </a>
           </motion.div>
+
+          {/* Quick Stats */}
+          <motion.div
+            className="grid grid-cols-3 gap-4 pt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
+            {[
+              { label: "Experience", value: "5+ Years" },
+              { label: "Projects", value: "20+" },
+              { label: "Clients", value: "Global" },
+            ].map((stat, i) => (
+              <div key={i} className="card !p-4">
+                <p className="text-gold-primary text-lg font-bold">{stat.value}</p>
+                <p className="text-text-secondary text-xs mt-1">{stat.label}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
+        {/* Right - 3D Card Profile */}
         <motion.div
           ref={portraitRef}
-          className="order-1 md:order-2 flex justify-center md:justify-end"
+          className="order-1 md:order-2 flex justify-center md:justify-end perspective"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={{
-            transform: reducedMotion ? "none" : `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+            transform: reducedMotion ? "none" : `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
             transformStyle: "preserve-3d",
           }}
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div
-            className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-card border-2 border-navy/20 bg-gradient-to-br from-navy/5 to-warmGray/5 shadow-card transition-all duration-300 hover:border-navy/40 hover:shadow-card-hover hover:-translate-y-1"
-            style={{ maxHeight: "400px" }}
-          >
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-              <div className="mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-navy to-[#2D3E5F] text-6xl text-white shadow-lg">
-                <span className="font-serif">MN</span>
+          <div className="relative w-full max-w-sm">
+            {/* Glow background */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-gold-primary/30 via-gold-highlight/20 to-gold-primary/30 rounded-2xl blur-2xl opacity-60 animate-pulse" />
+            
+            {/* Card */}
+            <div className="card relative !p-0 overflow-hidden min-h-96 flex flex-col justify-between">
+              {/* Top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold-primary to-transparent" />
+              
+              <div className="p-8 space-y-6 flex-1 flex flex-col justify-center">
+                {/* Avatar */}
+                <div className="flex justify-center mb-4">
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-gold-primary/30 to-gold-highlight/20 border-2 border-gold-primary/50 flex items-center justify-center">
+                    <span className="text-4xl font-serif font-bold text-gold-primary">MN</span>
+                  </div>
+                </div>
+
+                {/* Main content */}
+                <div className="space-y-3 text-center">
+                  <h3 className="text-2xl font-serif font-bold text-text-primary">
+                    Mohamed Nafeez S
+                  </h3>
+                  <p className="text-gold-primary text-sm font-semibold uppercase tracking-widest">
+                    Senior Frontend Developer
+                  </p>
+                  <p className="text-text-secondary text-sm leading-relaxed">
+                    Crafting premium digital experiences with modern web technologies and luxury design principles.
+                  </p>
+                </div>
               </div>
-              <h3 className="font-serif text-2xl font-semibold text-navy">Mohamed Nafeez S</h3>
-              <p className="mt-2 text-sm text-warmGray">Front End Developer</p>
-              <div className="mt-4 flex gap-2">
-                <div className="h-2 w-2 rounded-full bg-navy animate-pulse" />
-                <div className="h-2 w-2 rounded-full bg-navy animate-pulse" style={{ animationDelay: '0.2s' }} />
-                <div className="h-2 w-2 rounded-full bg-navy animate-pulse" style={{ animationDelay: '0.4s' }} />
+
+              {/* Bottom CTA */}
+              <div className="p-8 space-y-4 border-t border-gold-primary/20">
+                <button className="btn-primary w-full text-sm">
+                  Start a Project
+                </button>
+                <a
+                  href="#contact"
+                  className="block text-center text-text-secondary text-xs hover:text-gold-primary transition-colors"
+                >
+                  Get in Touch →
+                </a>
               </div>
-              <p className="mt-4 text-xs text-muted italic">
-                "Building accessible web experiences"
-              </p>
             </div>
           </div>
         </motion.div>
       </div>
 
+      {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-warmGray"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-text-secondary"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
+        transition={{ delay: 1 }}
       >
-        <a href="#about" className="flex flex-col items-center gap-2 text-xs no-underline transition-colors hover:text-navy">
-          <span>Scroll</span>
-          <span className="block h-6 w-4 rounded-full border-2 border-current p-1">
+        <a href="#about" className="flex flex-col items-center gap-2 text-xs no-underline transition-colors hover:text-gold-primary">
+          <span>Explore</span>
+          <span className="block h-6 w-4 rounded-full border border-current p-1">
             <motion.span
-              animate={{ y: [0, 4, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-              className="block h-1.5 w-1.5 rounded-full bg-current"
+              animate={{ y: [0, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="block h-1.5 w-1 rounded-full bg-current mx-auto"
             />
           </span>
         </a>

@@ -20,9 +20,12 @@ function App() {
         <Experience />
         <Contact />
       </main>
-      <footer className="border-t border-border bg-white py-8 text-center">
-        <p className="text-sm text-warmGray">
-          Mohamed Nafeez S · Front End Developer
+      <footer className="border-t border-gold-primary/20 bg-dark-surface py-12 text-center">
+        <p className="text-text-secondary text-sm">
+          Mohamed Nafeez S · Premium 3D Portfolio Platform
+        </p>
+        <p className="text-text-secondary/50 text-xs mt-2">
+          Crafted with luxury design and cutting-edge web technologies
         </p>
       </footer>
       <Chatbot />

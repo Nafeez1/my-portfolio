@@ -25,15 +25,18 @@ export default function Nav() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={`fixed left-0 right-0 top-0 z-40 border-b transition-all duration-300 ${
-        scrolled ? "border-border bg-white/95 backdrop-blur-sm shadow-sm" : "border-transparent bg-transparent"
+        scrolled
+          ? "border-gold-primary/20 bg-dark-surface/80 backdrop-blur-md shadow-lg"
+          : "border-transparent bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <a
           href="#hero"
-          className="font-sans text-lg font-medium text-navy no-underline transition-colors hover:text-navy/90"
+          className="font-serif text-lg font-semibold text-gold-primary no-underline transition-colors hover:text-gold-highlight flex items-center gap-2"
         >
-          Nafeez Portfolio
+          <span className="w-2 h-2 bg-gold-primary rounded-full" />
+          Mohamed Nafeez S
         </a>
 
         <ul className="hidden items-center gap-10 md:flex">
@@ -41,7 +44,7 @@ export default function Nav() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="relative text-sm font-medium text-body no-underline after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-navy after:transition-[width] after:duration-200 hover:text-ink hover:after:w-full"
+                className="relative text-sm font-medium text-text-secondary no-underline transition-colors hover:text-gold-primary after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold-primary after:transition-[width] after:duration-300 hover:after:w-full"
               >
                 {l.label}
               </a>
@@ -57,12 +60,12 @@ export default function Nav() {
           aria-expanded={open}
         >
           <span
-            className="block h-px w-5 bg-ink transition-transform"
+            className="block h-px w-5 bg-gold-primary transition-transform"
             style={{ transform: open ? "rotate(45deg) translate(2px, 2px)" : "none" }}
           />
-          <span className="block h-px w-5 bg-ink" style={{ opacity: open ? 0 : 1 }} />
+          <span className="block h-px w-5 bg-gold-primary" style={{ opacity: open ? 0 : 1 }} />
           <span
-            className="block h-px w-5 bg-ink transition-transform"
+            className="block h-px w-5 bg-gold-primary transition-transform"
             style={{ transform: open ? "rotate(-45deg) translate(2px, -2px)" : "none" }}
           />
         </button>
@@ -75,14 +78,14 @@ export default function Nav() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="border-t border-border bg-white md:hidden"
+            className="border-t border-gold-primary/20 bg-dark-surface/90 backdrop-blur-md md:hidden"
           >
             <ul className="flex flex-col gap-1 px-6 py-4">
               {links.map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="block py-3 text-sm font-medium text-body no-underline transition-colors hover:text-ink"
+                    className="block py-3 text-sm font-medium text-text-secondary no-underline transition-colors hover:text-gold-primary"
                     onClick={() => setOpen(false)}
                   >
                     {l.label}

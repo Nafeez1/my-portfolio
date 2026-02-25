@@ -35,23 +35,20 @@ export default function Experience() {
     <section
       id="experience"
       ref={sectionRef}
-      className="relative border-t border-border py-24 md:py-32"
-      style={{
-        background: 'linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%)'
-      }}
+      className="relative border-t border-gold-primary/20 py-24 md:py-32"
     >
-      <div className="absolute top-20 left-10 h-96 w-96 rounded-full bg-navy/5 blur-3xl" />
+      <div className="absolute top-20 left-10 h-96 w-96 rounded-full bg-gold-primary/5 blur-3xl" />
       
-      <div className="relative mx-auto max-w-5xl px-6">
+      <div className="relative mx-auto max-w-6xl px-6">
         <SectionReveal>
-          <h2 className="section-title font-sans text-3xl font-semibold text-navy md:text-4xl">
+          <h2 className="section-title font-serif text-4xl md:text-5xl font-bold text-text-primary mb-8">
             Experience & Education
           </h2>
 
           <div className="relative mt-12 flex">
-            <div className="absolute left-[11px] top-0 h-full w-px bg-border md:left-1/2 md:-translate-x-px">
+            <div className="absolute left-[11px] top-0 h-full w-px bg-gold-primary/20 md:left-1/2 md:-translate-x-px">
               <motion.div
-                className="absolute inset-0 w-full bg-navy"
+                className="absolute inset-0 w-full bg-gold-primary"
                 style={{ originY: 0 }}
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: progress }}
@@ -73,58 +70,58 @@ export default function Experience() {
                   <div className="relative z-10 ml-6 w-full max-w-md card md:ml-0">
                     <div className="mb-3 flex items-center justify-between">
                       <span
-                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${
+                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-widest ${
                           item.type === "work" 
-                            ? "bg-navy/10 text-navy" 
-                            : "bg-warmGray/10 text-warmGray"
+                            ? "bg-gold-primary/10 text-gold-primary" 
+                            : "bg-gold-primary/10 text-gold-primary"
                         }`}
                       >
                         {item.type === "work" ? "💼 Work" : "🎓 Education"}
                       </span>
                       {item.grade && (
-                        <span className="rounded-lg bg-navy px-3 py-1 text-sm font-semibold text-white shadow-sm">
+                        <span className="rounded-lg bg-gold-primary/20 border border-gold-primary px-3 py-1 text-sm font-semibold text-gold-primary">
                           {item.grade}
                         </span>
                       )}
                     </div>
-                    <h3 className="font-sans text-lg font-semibold text-navy">
+                    <h3 className="font-serif text-lg font-semibold text-text-primary">
                       {item.title}
                     </h3>
-                    <p className="mt-1 font-medium text-body">{item.org}</p>
+                    <p className="mt-1 font-medium text-text-secondary">{item.org}</p>
                     {item.location && (
-                      <p className="mt-1 flex items-center gap-1 text-xs text-muted">
+                      <p className="mt-1 flex items-center gap-1 text-xs text-text-secondary">
                         <span>📍</span>
                         {item.location}
                       </p>
                     )}
-                    <p className="mt-1 flex items-center gap-1 text-sm text-muted">
+                    <p className="mt-1 flex items-center gap-1 text-sm text-text-secondary">
                       <span>📅</span>
                       {item.period}
                     </p>
-                    <p className="mt-3 text-sm leading-relaxed text-body">{item.description}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-text-secondary">{item.description}</p>
                     
                     {item.subjects && item.subjects.length > 0 && (
                       <div className="mt-4 space-y-2">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-warmGray">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-text-secondary">
                           Key Subjects
                         </p>
                         <div className="grid grid-cols-2 gap-2">
                           {item.subjects.map((subject, idx) => (
                             <div
                               key={idx}
-                              className="group relative overflow-hidden rounded-lg border border-border bg-gradient-to-br from-white to-cream p-3 transition-all hover:border-navy hover:shadow-md"
+                              className="group relative overflow-hidden rounded-lg border border-gold-primary/20 bg-gradient-to-br from-gold-primary/10 to-gold-highlight/5 p-3 transition-all hover:border-gold-primary hover:shadow-glow-gold"
                             >
                               <div className="flex items-center justify-between">
-                                <span className="text-xs font-medium text-body">
+                                <span className="text-xs font-medium text-text-secondary">
                                   {subject.name}
                                 </span>
-                                <span className="text-xs font-bold text-navy">
+                                <span className="text-xs font-bold text-gold-primary">
                                   {subject.mark}
                                 </span>
                               </div>
-                              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-border">
+                              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-dark-card border border-gold-primary/20">
                                 <div
-                                  className="h-full rounded-full bg-gradient-to-r from-navy to-warmGray transition-all duration-500 group-hover:from-navy group-hover:to-navy"
+                                  className="h-full rounded-full bg-gradient-to-r from-gold-primary to-gold-highlight transition-all duration-500"
                                   style={{ width: subject.mark }}
                                 />
                               </div>
@@ -134,7 +131,7 @@ export default function Experience() {
                       </div>
                     )}
                   </div>
-                  <div className="absolute left-0 top-6 h-[14px] w-[14px] shrink-0 rounded-full border-2 border-navy bg-white shadow-md md:left-1/2 md:-translate-x-1/2" />
+                  <div className="absolute left-0 top-6 h-[14px] w-[14px] shrink-0 rounded-full border-2 border-gold-primary bg-dark-bg shadow-glow-gold md:left-1/2 md:-translate-x-1/2" />
                 </motion.li>
               ))}
             </ul>
@@ -143,17 +140,17 @@ export default function Experience() {
           <div className="mt-16 grid gap-8 sm:grid-cols-2">
             <div className="card">
               <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy/10">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold-primary/10 border border-gold-primary/30">
                   <span className="text-xl">🎓</span>
                 </div>
-                <h3 className="font-sans text-lg font-semibold text-navy">
+                <h3 className="font-serif text-lg font-semibold text-text-primary">
                   Certificates
                 </h3>
               </div>
-              <ul className="space-y-3 text-sm text-body">
+              <ul className="space-y-3 text-sm text-text-secondary">
                 {certificates.map((c, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-navy" />
+                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold-primary" />
                     <span>{c}</span>
                   </li>
                 ))}
@@ -161,17 +158,17 @@ export default function Experience() {
             </div>
             <div className="card">
               <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy/10">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold-primary/10 border border-gold-primary/30">
                   <span className="text-xl">🏆</span>
                 </div>
-                <h3 className="font-sans text-lg font-semibold text-navy">
+                <h3 className="font-serif text-lg font-semibold text-text-primary">
                   Achievements
                 </h3>
               </div>
-              <ul className="space-y-3 text-sm text-body">
+              <ul className="space-y-3 text-sm text-text-secondary">
                 {achievements.map((a, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-navy" />
+                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold-primary" />
                     <span>{a}</span>
                   </li>
                 ))}

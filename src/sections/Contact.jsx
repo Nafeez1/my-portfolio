@@ -61,18 +61,16 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative border-t border-border py-24 md:py-32" style={{
-      background: 'linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%)'
-    }}>
-      <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-warmGray/5 blur-3xl" />
+    <section id="contact" className="relative border-t border-gold-primary/20 py-24 md:py-32">
+      <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-gold-primary/5 blur-3xl" />
       
-      <div className="container relative z-10 mx-auto max-w-5xl px-6">
+      <div className="container relative z-10 mx-auto max-w-6xl px-6">
         <motion.h2
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4 }}
-          className="section-title mb-12 text-center font-sans text-3xl font-semibold text-navy md:text-4xl"
+          className="section-title mb-12 text-center font-serif text-4xl md:text-5xl font-bold text-text-primary"
         >
           Get in Touch
         </motion.h2>
@@ -85,8 +83,8 @@ export default function Contact() {
         >
           <div className="grid gap-12 md:grid-cols-2">
             <div>
-              <p className="mb-6 text-body">
-                Have a project in mind or want to chat? Send a message or reach out on socials.
+              <p className="mb-6 text-text-secondary">
+                Have a project in mind or want to collaborate? Send a message or reach out on socials.
               </p>
               <div className="space-y-4">
                 <a
