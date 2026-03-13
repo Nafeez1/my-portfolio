@@ -7,6 +7,7 @@ import Projects from "./sections/Projects";
 import Experience from "./sections/Experience";
 import Contact from "./sections/Contact";
 import Chatbot from "./components/Chatbot";
+import { motion } from "framer-motion";
 
 function App() {
   return (
@@ -20,14 +21,24 @@ function App() {
         <Experience />
         <Contact />
       </main>
-      <footer className="border-t border-gold-primary/20 bg-dark-surface py-12 text-center">
-        <p className="text-text-secondary text-sm">
-          Mohamed Nafeez S · Premium 3D Portfolio Platform
-        </p>
-        <p className="text-text-secondary/50 text-xs mt-2">
-          Crafted with luxury design and cutting-edge web technologies
-        </p>
-      </footer>
+      <motion.footer
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="border-t border-gold-primary/20 bg-black-surface/50 backdrop-blur-sm py-12 text-center"
+      >
+        <div className="max-w-6xl mx-auto px-6">
+          <p className="text-text-secondary text-sm font-medium">
+            Mohamed Nafeez S · Premium Creative Portfolio
+          </p>
+          <p className="text-text-tertiary text-xs mt-3">
+            Crafted with luxury design • Powered by React, Three.js & Framer Motion
+          </p>
+          <p className="text-text-tertiary/50 text-xs mt-4">
+            © {new Date().getFullYear()} · Designed for impact, built for performance
+          </p>
+        </div>
+      </motion.footer>
       <Chatbot />
     </Layout>
   );
