@@ -3,90 +3,65 @@ import { useRef } from "react";
 import { skills } from "../data/portfolio";
 import SectionReveal from "../components/SectionReveal";
 
-const groups = [
-  { key: "programming", label: "Programming", icon: "💻" },
-  { key: "frontend", label: "Frontend", icon: "🎨" },
-  { key: "technologies", label: "Technologies", icon: "⚙️" },
-  { key: "tools", label: "Tools", icon: "🛠️" },
-];
-
-function SkillItem({ skill, index }) {
-  return (
-    <motion.li
-      initial={{ opacity: 0, x: -10 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.05 }}
-      viewport={{ once: true }}
-      className="group"
-    >
-      <span className="relative inline-block text-text-secondary group-hover:text-gold-primary transition-colors duration-300">
-        {skill}
-        <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold-primary transition-all duration-300 group-hover:w-full" />
-      </span>
-    </motion.li>
-  );
-}
-
-function SkillCard({ group }) {
+function SkillCard({ groupKey, group, index }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6 }}
-      className="card group hover:shadow-glow-md overflow-hidden"
-      whileHover={{ y: -4 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      whileHover={{ y: -6 }}
+      className="card group overflow-hidden"
     >
-      {/* Icon */}
-      <motion.div
-        className="text-4xl mb-4"
-        animate={isInView ? { rotate: 360 } : {}}
-        transition={{ duration: 0.8 }}
-      >
-        {group.icon}
-      </motion.div>
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-5">
+        <div className="w-10 h-10 rounded-lg bg-gold-primary/10 border border-gold-primary/20 flex items-center justify-center text-xl group-hover:bg-gold-primary/20 transition-colors">
+          {group.icon}
+        </div>
+        <h3 className="text-sm font-semibold text-gold-primary uppercase tracking-widest">
+          {group.label}
+        </h3>
+      </div>
 
-      {/* Title */}
-      <h3 className="text-xs font-semibold uppercase tracking-widest text-gold-primary mb-6">
-        {group.label}
-      </h3>
-
-      {/* Skills List */}
-      <ul className="space-y-2.5">
-        {(skills[group.key] || []).map((skill, i) => (
-          <SkillItem key={i} skill={skill} index={i} />
+      {/* Skills */}
+      <div className="flex flex-wrap gap-2">
+        {group.items.map((skill, i) => (
+          <motion.span
+            key={i}
+            className="skill-tag text-xs"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: index * 0.08 + i * 0.04 }}
+            whileHover={{ scale: 1.08 }}
+          >
+            {skill}
+          </motion.span>
         ))}
-      </ul>
+      </div>
 
-      {/* Hover Gradient */}
+      {/* Hover shimmer */}
       <div className="absolute inset-0 bg-gradient-to-r from-gold-primary/0 via-gold-primary/5 to-gold-primary/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
     </motion.div>
   );
 }
 
 export default function Skills() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section
       id="skills"
-      ref={sectionRef}
+      ref={ref}
       className="relative border-t border-gold-primary/20 py-24 md:py-32 overflow-hidden"
     >
-      {/* Animated Background */}
       <motion.div
-        className="absolute bottom-20 left-10 h-96 w-96 rounded-full bg-gold-primary/5 blur-3xl"
+        className="absolute bottom-20 left-10 h-80 w-80 rounded-full bg-gold-primary/5 blur-3xl pointer-events-none"
         animate={{ y: [0, 50, 0] }}
-        transition={{ duration: 8, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute top-20 right-10 h-96 w-96 rounded-full bg-gold-primary/3 blur-3xl"
-        animate={{ y: [0, -50, 0] }}
-        transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+        transition={{ duration: 9, repeat: Infinity }}
       />
 
       <div className="relative mx-auto max-w-6xl px-6 z-10">
@@ -97,24 +72,22 @@ export default function Skills() {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
+            <p className="text-gold-primary text-xs font-semibold uppercase tracking-widest mb-3">
+              Technical Expertise
+            </p>
             <h2 className="section-title font-serif text-4xl md:text-5xl font-bold text-text-primary mb-4">
-              Skills & Expertise
+              Skills & Technologies
             </h2>
             <p className="text-text-secondary max-w-2xl">
-              Proficient across the full stack with expertise in modern frameworks, design systems, and performance optimization.
+              A broad skill set spanning frontend development, backend systems, AI/ML, and data analytics — built through real projects and continuous learning.
             </p>
           </motion.div>
 
-          <motion.div
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
-          >
-            {groups.map((g) => (
-              <SkillCard key={g.key} group={g} />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {Object.entries(skills).map(([key, group], i) => (
+              <SkillCard key={key} groupKey={key} group={group} index={i} />
             ))}
-          </motion.div>
+          </div>
         </SectionReveal>
       </div>
     </section>

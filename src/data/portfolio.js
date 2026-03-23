@@ -1,44 +1,78 @@
-// Hero Section
+// ─── Hero ────────────────────────────────────────────────────────────────────
 export const hero = {
   name: "Mohamed Nafeez S",
-  role: "Frontend Developer & Creative Engineer",
-  tagline: "Crafting luxury digital experiences with precision and artistry. Specialized in premium UI/UX, interactive animations, and cutting-edge web technologies.",
+  role: "Front End Developer",
+  tagline:
+    "I build fast, accessible, and visually compelling web experiences — from pixel-perfect UIs to AI-powered applications that solve real problems.",
   resumeUrl: "/resume.pdf",
 };
 
-// About Section
+// ─── About ───────────────────────────────────────────────────────────────────
 export const about = {
-  bio: "I'm a Frontend Developer passionate about creating premium, cinematic digital experiences. With expertise in React, Three.js, and modern animation libraries, I transform complex ideas into elegant, high-performance web applications. My work bridges the gap between design excellence and technical precision, focusing on creating immersive experiences that captivate and engage.",
+  bio: "I'm a Computer Science undergraduate and Front End Developer with a passion for crafting premium digital experiences. I combine strong fundamentals in React, Python, and Java with hands-on project experience in AI/ML, accessibility tools, and safety-focused applications. I thrive at the intersection of design and engineering — writing clean code that looks great and performs even better.",
+  objective:
+    "Seeking a challenging role where I can apply my frontend expertise, problem-solving mindset, and passion for impactful technology to build products that matter.",
   highlights: [
-    "React & Vue Specialist",
-    "3D Web Experiences",
-    "Animation Expert",
-    "Performance Optimization",
-    "Accessibility First",
-    "Full-Stack Knowledge",
-    "Design Systems",
-    "Motion Graphics",
+    "React & JavaScript Specialist",
+    "AI / Deep Learning Projects",
+    "Accessibility-First Development",
+    "Full-Stack Capable",
+    "Data Analytics & Visualization",
+    "Clean, Maintainable Code",
+  ],
+  stats: [
+    { label: "Projects Built", value: "10+" },
+    { label: "Certifications", value: "3+" },
+    { label: "Awards Won", value: "2" },
   ],
 };
 
-// Skills Section
+// ─── Skills ──────────────────────────────────────────────────────────────────
 export const skills = {
-  programming: ["JavaScript", "Python", "Java", "C", "TypeScript", "HTML5", "CSS3"],
-  frontend: ["React.js", "Vue.js", "Three.js", "Framer Motion", "GSAP", "Tailwind CSS", "Webpack"],
-  technologies: ["Node.js", "MongoDB", "PostgreSQL", "MySQL", "Firebase", "AWS"],
-  tools: ["Git", "Docker", "Figma", "VS Code", "Blender", "Linear", "Vercel"],
+  languages: {
+    label: "Languages",
+    icon: "💻",
+    items: ["Java", "Python", "C", "JavaScript", "HTML5", "CSS3"],
+  },
+  frontend: {
+    label: "Frontend",
+    icon: "🎨",
+    items: ["React.js", "Tailwind CSS", "Bootstrap", "Responsive Design", "DOM Manipulation"],
+  },
+  backend: {
+    label: "Backend & DB",
+    icon: "⚙️",
+    items: ["Node.js", "MySQL", "MongoDB", "PostgreSQL", "Firebase"],
+  },
+  tools: {
+    label: "Tools & Platforms",
+    icon: "🛠️",
+    items: ["Git", "GitHub", "VS Code", "Figma", "Power BI", "Excel", "Vercel"],
+  },
+  other: {
+    label: "Other Skills",
+    icon: "✨",
+    items: ["Deep Learning", "TensorFlow", "Data Analytics", "Process Automation", "REST APIs"],
+  },
 };
 
-// Projects Section
+// ─── Projects ────────────────────────────────────────────────────────────────
 export const projects = [
   {
     id: "cervical-detection",
     title: "Cervical Cancer Detection",
-    category: "AI/ML",
-    description: "Deep learning model using CNN for early detection of cervical cancer with 94% accuracy. Built with Python, TensorFlow, and fastapi. Features real-time image processing and medical-grade UI.",
-    tech: ["Python", "TensorFlow", "Flask", "React", "PostgreSQL"],
+    category: "AI / ML",
+    description:
+      "A deep learning model using Convolutional Neural Networks (CNN) for early-stage cervical cancer detection. Achieved high accuracy on medical image datasets with a clean React-based diagnostic UI.",
+    tech: ["Python", "TensorFlow", "CNN", "Flask", "React", "PostgreSQL"],
+    features: [
+      "94%+ model accuracy on test data",
+      "Real-time image upload & analysis",
+      "Medical-grade result visualization",
+      "REST API backend with Flask",
+    ],
     image: "🧬",
-    duration: "2023 - 2024",
+    duration: "2023 – 2024",
     role: "Full Stack Developer",
     liveUrl: "#",
     githubUrl: "#",
@@ -47,8 +81,15 @@ export const projects = [
     id: "assistive-reading",
     title: "Assistive Reading Tool",
     category: "Accessibility",
-    description: "Web application designed for individuals with dyslexia. Features include adjustable fonts, color overlays, text-to-speech, and distraction-free reading mode. Won recognition for accessibility innovation.",
-    tech: ["React", "Node.js", "Web Audio API", "Accessibility APIs"],
+    description:
+      "A web application designed for individuals with dyslexia. Provides adjustable fonts, color overlays, text-to-speech, and a distraction-free reading mode to improve comprehension and comfort.",
+    tech: ["React", "Node.js", "Web Speech API", "Accessibility APIs", "CSS"],
+    features: [
+      "Dyslexia-friendly font rendering",
+      "Customizable color overlays",
+      "Text-to-speech integration",
+      "Distraction-free reading mode",
+    ],
     image: "📖",
     duration: "2023",
     role: "Lead Developer",
@@ -59,137 +100,140 @@ export const projects = [
     id: "haven-path",
     title: "Haven Path",
     category: "Safety App",
-    description: "Mobile-first web app for women's safety and navigation. Real-time location sharing, emergency alerts, safe route mapping, and community-based safety scoring with 10k+ users.",
-    tech: ["React Native", "Firebase", "Google Maps API", "Express.js"],
+    description:
+      "A mobile-first web application for women's safety. Features real-time location sharing, emergency SOS alerts, safe route mapping, and community-based safety scoring.",
+    tech: ["React", "Firebase", "Google Maps API", "Express.js", "Node.js"],
+    features: [
+      "Real-time location sharing",
+      "One-tap SOS emergency alert",
+      "Safe route recommendations",
+      "Community safety scoring",
+    ],
     image: "🗺️",
-    duration: "2022 - 2023",
+    duration: "2022 – 2023",
     role: "Product Developer",
     liveUrl: "#",
     githubUrl: "#",
   },
   {
-    id: "luxury-ui",
-    title: "Luxury UI Kit",
-    category: "Design System",
-    description: "Comprehensive component library for premium web design. Features glassmorphic cards, animated gradients, interactive elements, and responsive layouts. Reusable across projects.",
-    tech: ["React", "Tailwind CSS", "Framer Motion", "Storybook"],
-    image: "✨",
-    duration: "2024",
-    role: "Designer & Developer",
-    liveUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    id: "3d-portfolio",
-    title: "Interactive 3D Portfolio",
-    category: "Web Experience",
-    description: "High-performance 3D portfolio utilizing Three.js with custom shaders, particle systems, and real-time lighting. 60fps animations and optimized for desktop and mobile.",
-    tech: ["Three.js", "React Three Fiber", "GLSL", "Vite"],
-    image: "🎨",
-    duration: "2024",
-    role: "Creative Technologist",
-    liveUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    id: "data-dashboard",
-    title: "Analytics Dashboard",
-    category: "Data Visualization",
-    description: "Real-time analytics platform with custom data visualizations. Interactive charts, heatmaps, and metrics dashboard. Built for high-traffic environments with 99.9% uptime.",
-    tech: ["React", "D3.js", "Express.js", "MongoDB"],
-    image: "📊",
+    id: "ecommerce-science-fair",
+    title: "E-Commerce Website",
+    category: "Web App",
+    description:
+      "A fully functional e-commerce platform built for the Tamil Nadu State Science Fair. Won 1st Prize for demonstrating innovation in web technology with a complete shopping experience.",
+    tech: ["HTML", "CSS", "JavaScript", "MySQL", "PHP"],
+    features: [
+      "Product catalog with search & filter",
+      "Cart and checkout flow",
+      "Admin dashboard",
+      "1st Prize — TN State Science Fair",
+    ],
+    image: "🛒",
     duration: "2023",
-    role: "Full Stack Developer",
+    role: "Solo Developer",
     liveUrl: "#",
     githubUrl: "#",
   },
 ];
 
-// Experience Section
+// ─── Experience / Education Timeline ─────────────────────────────────────────
 export const experience = [
   {
-    id: "edu-1",
+    id: "edu-btech",
     type: "education",
-    title: "B.Tech Computer Science",
+    title: "B.Tech — Computer Science & Engineering",
     org: "Sri Manakula Vinayagar Engineering College",
-    period: "2023 - Present",
+    period: "2023 – Present",
     location: "Puducherry, India",
     grade: "CGPA 6.57",
-    description: "Pursuing Bachelor of Technology in Computer Science & Engineering with focus on web technologies, AI/ML, and software development.",
+    description:
+      "Pursuing a Bachelor of Technology in Computer Science & Engineering. Coursework covers data structures, algorithms, web development, AI/ML, and database systems.",
   },
   {
-    id: "work-1",
-    type: "work",
-    title: "Frontend Developer",
-    org: "Tech Startup (Contract)",
-    period: "2023 - 2024",
-    location: "Remote",
-    description: "Developed premium web interfaces using React and Three.js. Implemented complex animations and interactive components resulting in 40% improvement in user engagement.",
-  },
-  {
-    id: "edu-2",
+    id: "edu-hsc",
     type: "education",
-    title: "HSC (Higher Secondary)",
+    title: "HSC — Higher Secondary Certificate",
     org: "Al Hudha Matric Higher Secondary School",
-    period: "2021 - 2023",
-    location: "Trichy, India",
+    period: "2021 – 2023",
+    location: "Trichy, Tamil Nadu, India",
     grade: "68.13%",
-    description: "Advanced studies in Science stream with focus on Physics, Chemistry, and Mathematics.",
+    description:
+      "Science stream with Physics, Chemistry, Mathematics, and Computer Science. Developed strong analytical and problem-solving foundations.",
+    subjects: [
+      { name: "Physics", mark: "72%" },
+      { name: "Chemistry", mark: "65%" },
+      { name: "Mathematics", mark: "70%" },
+      { name: "Computer Science", mark: "85%" },
+      { name: "English", mark: "60%" },
+    ],
   },
   {
-    id: "cert-1",
+    id: "edu-sslc",
     type: "education",
-    title: "NPTEL Java Programming",
-    org: "NPTEL (National Programme on Technology Enhanced Learning)",
-    period: "2023",
-    location: "Online",
-    grade: "80% - Silver Badge",
-    description: "Comprehensive Java programming course with advanced OOP concepts. Scored 80% earning Silver Badge certification.",
+    title: "SSLC — Secondary School Leaving Certificate",
+    org: "Al Hudha Matric Higher Secondary School",
+    period: "2020 – 2021",
+    location: "Trichy, Tamil Nadu, India",
+    grade: "Completed",
+    description:
+      "Completed secondary education with a focus on Mathematics and Science subjects.",
   },
 ];
 
-// Certificates
+// ─── Certifications ───────────────────────────────────────────────────────────
 export const certificates = [
   {
-    title: "NPTEL Programming in Java",
+    title: "Programming in Java",
     issuer: "NPTEL",
     year: "2023",
-    score: "80% (Silver Badge)",
+    score: "80% — Silver Badge",
+    icon: "☕",
+    color: "from-yellow-500/20 to-yellow-700/10",
   },
   {
     title: "Python for Data Science",
     issuer: "NPTEL",
     year: "2023",
     score: "Completed",
+    icon: "🐍",
+    color: "from-blue-500/20 to-blue-700/10",
   },
   {
     title: "Data Analytics & Process Automation",
     issuer: "Cohort Program",
     year: "2023",
     score: "Completed",
+    icon: "📊",
+    color: "from-green-500/20 to-green-700/10",
   },
 ];
 
-// Achievements
+// ─── Achievements ─────────────────────────────────────────────────────────────
 export const achievements = [
   {
+    title: "1st Prize — Tamil Nadu State Science Fair",
+    description:
+      "Won first place for building a fully functional E-Commerce Website at the state-level science fair, recognized for innovation in web technology.",
+    year: "2023",
+    icon: "🏆",
+  },
+  {
     title: "NPTEL Java Silver Badge",
-    description: "Secured 80% in NPTEL's Programming in Java course, earning Silver Badge certification.",
+    description:
+      "Scored 80% in NPTEL's Programming in Java course, earning the prestigious Silver Badge certification from IIT.",
     year: "2023",
+    icon: "🥈",
   },
   {
-    title: "Tamil Nadu Science Fair Winner",
-    description: "1st Prize for E-Commerce Website at state-level science fair demonstrating innovation in web technology.",
-    year: "2023",
-  },
-  {
-    title: "Early Detection AI Recognition",
-    description: "Recognized for developing an accurate cervical cancer detection model using deep learning.",
+    title: "AI Innovation Recognition",
+    description:
+      "Recognized for developing a high-accuracy cervical cancer detection model using deep learning, contributing to medical AI research.",
     year: "2024",
+    icon: "🧠",
   },
 ];
 
-// Contact Section
+// ─── Contact ──────────────────────────────────────────────────────────────────
 export const contact = {
   email: "nafeezdeveloper@gmail.com",
   phone: "6380225223",
@@ -198,7 +242,7 @@ export const contact = {
     {
       name: "GitHub",
       icon: "github",
-      url: "https://github.com",
+      url: "https://github.com/Nafeez1",
     },
     {
       name: "LinkedIn",
@@ -208,23 +252,23 @@ export const contact = {
   ],
 };
 
-// Chatbot Answers
+// ─── Chatbot ──────────────────────────────────────────────────────────────────
 export const chatbotAnswers = {
-  who: "I'm Mohamed Nafeez S, a Frontend Developer passionate about creating premium, cinematic digital experiences using React, Three.js, and modern web technologies.",
+  who: "Mohamed Nafeez S is a Front End Developer and B.Tech CSE student skilled in React, Python, Java, and AI/ML. He builds fast, accessible, and visually compelling web experiences.",
   skills:
-    "I specialize in: JavaScript, React, Three.js, Framer Motion, Tailwind CSS, Node.js, Python, and modern web technologies. Expert in animation, 3D experiences, and performance optimization.",
+    "Skills: Java, Python, C, JavaScript, HTML5, CSS3, React.js, Tailwind CSS, Node.js, MySQL, MongoDB, Firebase, Git, Power BI, TensorFlow, and more.",
   projects:
-    "My notable projects include: Cervical Cancer Detection AI, Assistive Reading Tool for dyslexia, Haven Path safety app, and advanced 3D portfolio experiences with 60fps animations.",
+    "Key projects: Cervical Cancer Detection (CNN/AI), Assistive Reading Tool for Dyslexia, Haven Path (women's safety app), and an E-Commerce Website that won 1st Prize at TN State Science Fair.",
   experience:
-    "Currently pursuing B.Tech in Computer Science at Sri Manakula Vinayagar Engineering College. Have worked on multiple full-stack projects combining frontend excellence with backend functionality.",
+    "Currently pursuing B.Tech CSE at Sri Manakula Vinayagar Engineering College (CGPA 6.57). HSC from Al Hudha Matric School (68.13%).",
   contact:
     "Email: nafeezdeveloper@gmail.com | Phone: 6380225223 | Location: Villupuram, Tamil Nadu | LinkedIn: /in/nafeez-s-836636377",
   education:
-    "B.Tech Computer Science (2023-Present, CGPA 6.57) | HSC (68.13%) | SSLC | NPTEL Java Silver Badge (80%)",
+    "B.Tech CSE (2023–Present, CGPA 6.57) | HSC 68.13% | SSLC — Al Hudha Matric School, Trichy",
   certificates:
-    "NPTEL Programming in Java (Silver Badge, 80%), Python for Data Science, Data Analytics & Process Automation",
+    "NPTEL Java (80%, Silver Badge), NPTEL Python for Data Science, Cohort Data Analytics & Process Automation.",
   achievements:
-    "NPTEL Java Silver Badge, 1st Prize at Tamil Nadu Science Fair for E-Commerce Website, Recognition for Early Detection AI Innovation",
+    "1st Prize at Tamil Nadu State Science Fair (E-Commerce Website) | NPTEL Java Silver Badge (80%) | AI Innovation Recognition for Cervical Cancer Detection.",
   default:
-    "I'm an AI assistant for Mohamed Nafeez's portfolio. Ask me about his background, skills, projects, experience, education, or how to contact him!",
+    "I can answer questions about Mohamed Nafeez's skills, projects, education, certifications, achievements, and contact info. What would you like to know?",
 };

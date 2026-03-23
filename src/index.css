@@ -30,19 +30,18 @@
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     position: relative;
+  }
 
-    /* Subtle animated background grain */
-    &::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1;
-    }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
   }
 
   #root {
@@ -81,17 +80,17 @@
     color: #FFFFFF;
     position: relative;
     display: inline-block;
+  }
 
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #FFD700, transparent);
-      border-radius: 2px;
-    }
+  h2::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #FFD700, transparent);
+    border-radius: 2px;
   }
 
   h3 {
@@ -177,10 +176,12 @@
 @layer components {
   /* Card Base Style */
   .card {
-    @apply relative rounded-card bg-black-card/40 backdrop-blur-md border border-gold-primary/20 p-6 transition-all duration-300 hover:border-gold-primary/40 hover:bg-black-card/60;
+    @apply relative rounded-card bg-black-card/40 backdrop-blur-md border border-gold-primary/20 p-6 transition-all duration-300;
   }
 
   .card:hover {
+    border-color: rgba(255, 215, 0, 0.4);
+    background: rgba(15, 15, 15, 0.6);
     box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
   }
 
@@ -190,43 +191,85 @@
   }
 
   .btn-primary {
-    @apply btn-base bg-gradient-gold text-black-dark hover:shadow-gold-lg hover:-translate-y-1 active:translate-y-0 relative overflow-hidden group;
+    @apply btn-base bg-gradient-gold text-black-dark relative overflow-hidden;
+    transition: all 0.3s ease;
+  }
 
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.2);
-      transition: left 0.3s ease;
-    }
+  .btn-primary:hover {
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
+    transform: translateY(-4px);
+  }
 
-    &:hover::before {
-      left: 100%;
-    }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
   }
 
   .btn-secondary {
-    @apply btn-base border-2 border-gold-primary text-gold-primary bg-transparent hover:bg-gold-primary/10 hover:shadow-gold hover:-translate-y-1 active:translate-y-0;
+    @apply btn-base border-2 border-gold-primary text-gold-primary bg-transparent;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+    transform: translateY(-4px);
+  }
+
+  .btn-secondary:active {
+    transform: translateY(0);
   }
 
   .btn-tertiary {
-    @apply btn-base text-gold-primary hover:text-white transition-colors;
+    @apply btn-base text-gold-primary;
+    transition: color 0.3s ease;
+  }
+
+  .btn-tertiary:hover {
+    color: #fff;
   }
 
   .btn-glass {
-    @apply px-4 py-2 rounded-lg backdrop-blur-md border border-gold-primary/30 text-gold-primary hover:border-gold-primary hover:bg-gold-primary/10 transition-all;
+    @apply px-4 py-2 rounded-lg backdrop-blur-md border border-gold-primary/30 text-gold-primary;
+    transition: all 0.3s ease;
   }
 
-  /* Tags */
+  .btn-glass:hover {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+  }
+
   .tag-primary {
-    @apply inline-block px-3 py-1 rounded-full text-xs font-semibold bg-gold-primary/10 text-gold-primary border border-gold-primary/30 transition-all hover:bg-gold-primary/20 hover:border-gold-primary/60;
+    @apply inline-block px-3 py-1 rounded-full text-xs font-semibold bg-gold-primary/10 text-gold-primary border border-gold-primary/30;
+    transition: all 0.3s ease;
+  }
+
+  .tag-primary:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.6);
   }
 
   .tag-secondary {
-    @apply inline-block px-3 py-1 rounded-full text-xs font-medium bg-black-surface/80 text-text-secondary border border-text-tertiary/30 transition-all hover:text-gold-primary;
+    @apply inline-block px-3 py-1 rounded-full text-xs font-medium bg-black-surface/80 text-text-secondary border border-text-tertiary/30;
+    transition: color 0.3s ease;
+  }
+
+  .tag-secondary:hover {
+    color: #FFD700;
   }
 
   /* Section Title */
@@ -256,17 +299,17 @@
   .shine {
     position: relative;
     overflow: hidden;
+  }
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
-      animation: shine 2s infinite;
-    }
+  .shine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+    animation: shine 2s infinite;
   }
 
   /* Glow Effects */
@@ -280,31 +323,37 @@
 
   /* Input Styles */
   input, textarea {
-    @apply bg-black-surface/50 border border-gold-primary/20 rounded-lg px-4 py-2 text-white placeholder-text-tertiary transition-all focus:outline-none focus:border-gold-primary focus:shadow-glow-md;
+    @apply bg-black-surface/50 border border-gold-primary/20 rounded-lg px-4 py-2 text-white placeholder-text-tertiary transition-all;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
   }
 
   /* Magnetic Button Effect */
   .magnetic {
     position: relative;
     overflow: hidden;
+  }
 
-    &::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 215, 0, 0.1);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
+  .magnetic::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
 
-    &:hover::before {
-      width: 300px;
-      height: 300px;
-    }
+  .magnetic:hover::before {
+    width: 300px;
+    height: 300px;
   }
 }
 

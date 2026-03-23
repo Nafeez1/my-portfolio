@@ -3,68 +3,87 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { projects } from "../data/portfolio";
 import SectionReveal from "../components/SectionReveal";
 
+const ALL = "All";
+
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [selected, setSelected] = useState(null);
+  const [filter, setFilter] = useState(ALL);
+
+  const categories = [ALL, ...Array.from(new Set(projects.map((p) => p.category)))];
+  const filtered = filter === ALL ? projects : projects.filter((p) => p.category === filter);
 
   useEffect(() => {
-    if (selected) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
+    document.body.style.overflow = selected ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [selected]);
 
   return (
-    <section id="projects" className="relative border-t border-gold-primary/20 py-24 md:py-32 overflow-hidden">
-      {/* Animated Background */}
+    <section
+      id="projects"
+      className="relative border-t border-gold-primary/20 py-24 md:py-32 overflow-hidden"
+    >
       <motion.div
-        className="absolute right-0 top-20 h-80 w-80 rounded-full bg-gold-primary/5 blur-3xl"
+        className="absolute right-0 top-20 h-80 w-80 rounded-full bg-gold-primary/5 blur-3xl pointer-events-none"
         animate={{ x: [0, 30, 0] }}
-        transition={{ duration: 8, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute left-0 bottom-20 h-80 w-80 rounded-full bg-gold-primary/5 blur-3xl"
-        animate={{ x: [0, -30, 0] }}
-        transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+        transition={{ duration: 9, repeat: Infinity }}
       />
 
       <div className="relative mx-auto max-w-6xl px-6 z-10">
         <SectionReveal>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
-          >
+          <div className="mb-10">
+            <p className="text-gold-primary text-xs font-semibold uppercase tracking-widest mb-3">
+              What I've Built
+            </p>
             <h2 className="section-title font-serif text-4xl md:text-5xl font-bold text-text-primary mb-4">
               Featured Projects
             </h2>
-            <p className="mt-4 max-w-3xl text-lg text-text-secondary">
-              Curated selection of projects showcasing expertise in creative development, 3D experiences, and premium UI/UX design.
+            <p className="text-text-secondary max-w-2xl">
+              Real-world projects spanning AI/ML, accessibility, safety tech, and web development — each built to solve a genuine problem.
             </p>
-          </motion.div>
+          </div>
+
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            {categories.map((cat) => (
+              <motion.button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border transition-all ${
+                  filter === cat
+                    ? "bg-gold-primary text-black border-gold-primary"
+                    : "border-gold-primary/30 text-text-secondary hover:border-gold-primary hover:text-gold-primary"
+                }`}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                {cat}
+              </motion.button>
+            ))}
+          </div>
 
           <motion.div
             ref={ref}
-            className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
+            className="grid gap-6 sm:grid-cols-2"
+            layout
           >
-            {projects.map((project, i) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={i}
-                isInView={isInView}
-                onClick={() => setSelected(project)}
-              />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filtered.map((project, i) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={i}
+                  isInView={isInView}
+                  onClick={() => setSelected(project)}
+                />
+              ))}
+            </AnimatePresence>
           </motion.div>
         </SectionReveal>
       </div>
 
-      {/* Enhanced Modal */}
+      {/* Modal */}
       <AnimatePresence>
         {selected && (
           <>
@@ -72,114 +91,82 @@ export default function Projects() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black-dark/70 backdrop-blur-md"
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-md"
               onClick={() => setSelected(null)}
             />
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", damping: 20, stiffness: 300 }}
-              className="fixed left-1/2 top-1/2 z-50 w-full max-w-2xl max-h-[90vh] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-2xl"
+              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 20 }}
+              transition={{ type: "spring", damping: 22, stiffness: 300 }}
+              className="fixed left-1/2 top-1/2 z-50 w-full max-w-xl max-h-[88vh] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative bg-black-card/95 border border-gold-primary/40 shadow-glow-lg overflow-hidden">
-                {/* Header Glow */}
-                <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gold-primary/20 to-transparent blur-2xl pointer-events-none" />
-
-                <div className="relative p-8 space-y-6">
-                  {/* Project Icon/Preview */}
-                  <div className="aspect-video bg-gradient-to-br from-gold-primary/10 to-gold-primary/5 rounded-xl flex items-center justify-center text-6xl overflow-hidden relative">
-                    <motion.div
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      {selected.image}
-                    </motion.div>
+              <div className="bg-black-card/98 border border-gold-primary/40 shadow-glow-lg overflow-hidden">
+                {/* Preview */}
+                <div className="aspect-video bg-gradient-to-br from-gold-primary/10 to-gold-primary/5 flex items-center justify-center text-7xl relative">
+                  {selected.image}
+                  <div className="absolute top-3 right-3">
+                    <span className="tag-primary text-xs">{selected.category}</span>
                   </div>
+                </div>
 
-                  {/* Content */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="space-y-3"
-                  >
-                    <h3 className="font-serif text-3xl font-bold text-text-primary">
+                <div className="p-7 space-y-5">
+                  <div>
+                    <h3 className="font-serif text-2xl font-bold text-text-primary">
                       {selected.title}
                     </h3>
-                    {(selected.duration || selected.role) && (
-                      <p className="text-sm text-gold-primary font-medium">
-                        {[selected.duration, selected.role].filter(Boolean).join(" · ")}
-                      </p>
-                    )}
-                  </motion.div>
+                    <p className="text-xs text-gold-primary mt-1">
+                      {[selected.duration, selected.role].filter(Boolean).join(" · ")}
+                    </p>
+                  </div>
 
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.15 }}
-                    className="leading-relaxed text-text-secondary text-base"
-                  >
+                  <p className="text-text-secondary text-sm leading-relaxed">
                     {selected.description}
-                  </motion.p>
+                  </p>
 
-                  {/* Tech Stack */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="space-y-3"
-                  >
-                    <h4 className="text-sm font-medium text-gold-primary uppercase tracking-wider">
-                      Technologies
-                    </h4>
+                  {selected.features && (
+                    <div>
+                      <p className="text-xs font-semibold text-gold-primary uppercase tracking-wider mb-2">
+                        Key Features
+                      </p>
+                      <ul className="space-y-1.5">
+                        {selected.features.map((f, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                            <span className="text-gold-primary mt-0.5">✓</span>
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div>
+                    <p className="text-xs font-semibold text-gold-primary uppercase tracking-wider mb-2">
+                      Tech Stack
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       {selected.tech.map((t) => (
-                        <motion.span
-                          key={t}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="tag-secondary"
-                        >
-                          {t}
-                        </motion.span>
+                        <span key={t} className="tag-secondary text-xs">{t}</span>
                       ))}
                     </div>
-                  </motion.div>
+                  </div>
 
-                  {/* Action Buttons */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25 }}
-                    className="flex flex-wrap gap-3 pt-4 border-t border-gold-primary/20"
-                  >
-                    <a
-                      href={selected.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary text-sm"
-                    >
+                  <div className="flex flex-wrap gap-3 pt-2 border-t border-gold-primary/20">
+                    <a href={selected.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-primary text-xs">
                       Live Demo →
                     </a>
-                    <a
-                      href={selected.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-secondary text-sm"
-                    >
+                    <a href={selected.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary text-xs">
                       View Code
                     </a>
                     <button
                       type="button"
                       onClick={() => setSelected(null)}
-                      className="ml-auto px-4 py-2 rounded-lg text-text-secondary hover:text-text-primary transition-colors font-medium"
+                      className="ml-auto text-text-secondary hover:text-text-primary text-sm transition-colors"
                     >
-                      Close
+                      Close ✕
                     </button>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -197,88 +184,78 @@ function ProjectCard({ project, index, isInView, onClick }) {
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setSpotlight({ x, y });
+    setSpotlight({
+      x: ((e.clientX - rect.left) / rect.width) * 100,
+      y: ((e.clientY - rect.top) / rect.height) * 100,
+    });
   };
 
   return (
     <motion.article
       ref={cardRef}
+      layout
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.08, duration: 0.5 }}
-      whileHover={{ y: -8 }}
-      className="group relative cursor-pointer overflow-hidden card transition-all duration-300"
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ delay: index * 0.07, duration: 0.45 }}
+      whileHover={{ y: -6 }}
+      className="group relative cursor-pointer overflow-hidden card"
       onClick={onClick}
       onMouseMove={handleMouseMove}
     >
-      {/* Preview Image */}
-      <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-gold-primary/10 to-gold-highlight/5 rounded-lg mb-6">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(circle 120px at ${spotlight.x}% ${spotlight.y}%, rgba(255, 215, 0, 0.3), transparent 70%)`,
-          }}
-        />
+      {/* Spotlight */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(circle 140px at ${spotlight.x}% ${spotlight.y}%, rgba(255,215,0,0.12), transparent 70%)`,
+        }}
+      />
+
+      {/* Image area */}
+      <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-gold-primary/10 to-gold-primary/5 rounded-lg mb-5">
         <motion.div
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center text-6xl"
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.3 }}
         >
-          <span className="text-6xl opacity-50 group-hover:opacity-70 transition-opacity">
+          <span className="opacity-60 group-hover:opacity-90 transition-opacity">
             {project.image}
           </span>
         </motion.div>
-
-        {/* Category Badge */}
-        <div className="absolute top-3 right-3 tag-secondary text-xs">
-          {project.category}
+        <div className="absolute top-3 right-3">
+          <span className="tag-primary text-xs">{project.category}</span>
         </div>
-
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gold-primary/0 group-hover:bg-gold-primary/10 transition-colors duration-300 flex items-end p-4">
-          <span className="text-xs font-semibold text-gold-primary opacity-0 group-hover:opacity-100 transition-opacity">
-            Click to explore →
-          </span>
+        <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-xs font-semibold text-gold-primary">Click to explore →</span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="space-y-4 relative z-10">
+      <div className="space-y-3">
         <div>
-          <h3 className="font-serif text-xl font-semibold text-text-primary group-hover:text-gold-primary transition-colors">
+          <h3 className="font-serif text-lg font-semibold text-text-primary group-hover:text-gold-primary transition-colors">
             {project.title}
           </h3>
           {project.duration && (
-            <p className="text-xs text-text-secondary mt-1">{project.duration}</p>
+            <p className="text-xs text-text-tertiary mt-0.5">{project.duration} · {project.role}</p>
           )}
         </div>
-
-        <p className="line-clamp-2 text-sm leading-relaxed text-text-secondary group-hover:text-text-secondary transition-colors">
+        <p className="text-sm text-text-secondary leading-relaxed line-clamp-2">
           {project.description}
         </p>
-
-        <div className="flex flex-wrap gap-2 pt-2">
-          {project.tech.slice(0, 3).map((t) => (
-            <motion.span
-              key={t}
-              className="text-xs px-2 py-1 rounded border border-gold-primary/30 text-gold-primary bg-gold-primary/5 group-hover:bg-gold-primary/10 transition-colors"
-              whileHover={{ scale: 1.05 }}
-            >
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          {project.tech.slice(0, 4).map((t) => (
+            <span key={t} className="text-xs px-2 py-0.5 rounded border border-gold-primary/25 text-gold-primary bg-gold-primary/5">
               {t}
-            </motion.span>
+            </span>
           ))}
-          {project.tech.length > 3 && (
-            <span className="text-xs px-2 py-1 rounded border border-gold-primary/30 text-gold-primary/70">
-              +{project.tech.length - 3}
+          {project.tech.length > 4 && (
+            <span className="text-xs px-2 py-0.5 rounded border border-gold-primary/20 text-text-tertiary">
+              +{project.tech.length - 4}
             </span>
           )}
         </div>
       </div>
-
-      {/* Glow effect on hover */}
-      <div className="absolute inset-0 bg-gradient-to-r from-gold-primary/0 via-gold-primary/5 to-gold-primary/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
     </motion.article>
   );
 }
